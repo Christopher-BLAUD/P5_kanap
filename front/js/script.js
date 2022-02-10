@@ -1,4 +1,4 @@
-// Fonction pour créer le html à insérer dans le DOM pour chaques produits
+// Permet de créer le html à insérer dans le DOM pour chaques produits
 
 function showItems(e){
     return `
@@ -13,7 +13,7 @@ function showItems(e){
 }
 
 
-// Requête API
+// Call API pour récupérer les données produits
 
 async function updateItems(){
    await fetch('http://localhost:3000/api/products')

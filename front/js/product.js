@@ -1,18 +1,24 @@
 // Permet de récupérer l'id du produit contenu dans l'url
+
 var itemUrl = window.location.href;
 var url = new URL(itemUrl);
 let idItem = url.searchParams.get("id");
 
+
+
 // Fonction pour récupérer les données de l'API grace à l'ID
+
 function getItem (){
 
     // J'introduis l'id du produit directement dans la requète 
+
     fetch("http://localhost:3000/api/products/" + idItem)
     .then(function(response){
         return response.json();
     })
 
     // J'exporte les données et affiche les caractéristiques du produit grace à la fonction "showItem"  
+
     .then(function(data){
         showItem(data);
         getProductForCart(data);
@@ -23,7 +29,10 @@ function getItem (){
     
 };
 
+
+
 // Permet d'afficher les caractéristiques du produit 
+
 function showItem(article){
 
     // Affichage de l'image
@@ -36,15 +45,12 @@ function showItem(article){
     document.querySelector("#title").innerHTML = article.name;
     
     // Affichage du prix
-
     document.querySelector("#price").innerHTML = article.price;
     
     // Affichage de la description
-
     document.querySelector("#description").innerHTML = article.description;
 
     // Affichage des couleurs disponibles
-
     for(let color of article.colors){
         let colorOfItem = document.createElement("option");
         document.querySelector("#colors").appendChild(colorOfItem),
@@ -91,6 +97,7 @@ function getProductForCart(product){
             cartSaved.push(myProduct);
             saveCart(cartSaved);
         }
+        alert("Le produit a été ajouté au panier")
     })
 }
 
