@@ -65,9 +65,11 @@ getItem();
 // Fonction pour envoyer les infos du canapé au clic sur le bouton
 
 function getProductForCart(product){
+
     const addBtn = document.querySelector("#addToCart");
     const colorChoice = document.querySelector("#colors");
     const productQuantity = document.querySelector("#quantity");
+
     addBtn.addEventListener("click", function(){
         const myProduct = {
             Name : product.name,
@@ -81,6 +83,8 @@ function getProductForCart(product){
         
         let cartSaved = JSON.parse(localStorage.getItem("myCart"));
         if(cartSaved){
+
+            // Permet de controler l'existence du produit dans le panier (même ID et même couleur)
             const productControl = cartSaved.find(sofa => sofa.ID == product._id && sofa.Color == colorChoice.value)
             if(productControl){
                 let finalQuantity = myProduct.Quantity + productControl.Quantity;

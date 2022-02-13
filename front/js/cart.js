@@ -65,7 +65,7 @@ for(let b = 0; b < deleteBtn.length; b++){
 
 
 // Affiche le nombre total de produit dans le panier (en tenant compte de la quantité de chacun)
-
+function showTotalQuantity(){
 let totalQuantity = 0;
 const showQuantity = document.querySelector("#totalQuantity");
 
@@ -74,11 +74,13 @@ for(let p in myCart){
 }
 
 showQuantity.innerHTML = totalQuantity;
+}
 
+showTotalQuantity();
 
 
 // Affiche le prix total
-
+function showTotalPrice(){
 let totalPrice = 0;
 const showPrice = document.querySelector("#totalPrice");
 
@@ -87,7 +89,9 @@ for(let k in myCart){
 }
 
 showPrice.innerHTML = totalPrice;
+}
 
+showTotalPrice();
 
 
 // Modifier la quantité directement dans le panier 
@@ -128,17 +132,15 @@ function datasUserControl() {
   const address = document.querySelector("#address");
   const city = document.querySelector("#city");
   const email = document.querySelector("#email");
-
+  const submitBtn = document.querySelector("#order");
 
   // Controle du prenom
   const firstNameValidation = document.querySelector("#firstNameErrorMsg");
   firstName.addEventListener("change", function (e) {
       if (/^[A-Z][A-Za-z\é\è\ê\-]+$/.test(e.target.value)) {
           firstNameValidation.innerHTML = "";
-          disableSubmit(false);
       } else {
           firstNameValidation.innerHTML = "Le prénom doit commencer par une majuscule et ne contenir que des lettres.";
-          disableSubmit(true);
       }
   })
 
@@ -147,10 +149,8 @@ function datasUserControl() {
   lastName.addEventListener("change", function (e) {
       if (/^[A-Z][A-Za-z\é\è\ê\-]+$/.test(e.target.value)) {
           lastNameValidation.innerHTML = "";
-          disableSubmit(false);
       } else {
           lastNameValidation.innerHTML = "Nom incorrect"
-          disableSubmit(true);
       }
   })
 
@@ -159,11 +159,9 @@ function datasUserControl() {
   address.addEventListener("change", function(e){
     if(/^.{3,144}$/.test(e.target.value)){
       addressValidation.innerHTML = "";
-      disableSubmit(false);
     }
     else{
       addressValidation.innerHTML = "Adresse incorrect"
-      disableSubmit(true);
     }
   })
 
@@ -172,10 +170,8 @@ function datasUserControl() {
   city.addEventListener("change", function (e) {
       if (/^[A-Z][A-Za-z\é\è\ê\-]+$/.test(e.target.value)) {
           cityValidation.innerHTML = "";
-          disableSubmit(false);
       } else {
           cityValidation.innerHTML = "Veuillez renseigner une ville existante et commencer par une majuscule"
-          disableSubmit(true);
       }
   })
 
@@ -184,10 +180,8 @@ function datasUserControl() {
   email.addEventListener("change", function (e) {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
           emailValidation.innerHTML = "";
-          disableSubmit(false);
       } else {
           emailValidation.innerHTML = "Adresse email incorrect !"
-          disableSubmit(true);
       }
   })
 }
@@ -195,24 +189,13 @@ function datasUserControl() {
 
 datasUserControl();
 
-function disableSubmit(disabled) {
-  if (disabled) {
-      submitBtn.setAttribute("disabled", true);
-  } else {
-      submitBtn.removeAttribute("disabled");
-  }
-}
-
-
-
-
 
 
 // Envoyer les données user et récupère l'ID de la commmande
 
 const submitBtn = document.querySelector("#order");
  
-submitBtn.addEventListener("click", async function (e) {
+submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let productsInfo = [];
  
@@ -241,6 +224,7 @@ submitBtn.addEventListener("click", async function (e) {
     fetch("http://localhost:3000/api/products/order", options)
     .then((response) => {return response.json()})
     .then((data) => {
+      
       // Passe le "orderId" en paramètre de l'url
       window.location.href = `confirmation.html?orderId=${data.orderId}`;
       localStorage.clear();
