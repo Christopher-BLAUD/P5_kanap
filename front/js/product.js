@@ -80,7 +80,10 @@ function getProductForCart(product){
             Color: colorChoice.value,
             Quantity: parseInt(productQuantity.value, 10)
         };
-        
+
+        // Permet de contrôler qu'une quantité et une couleur sont bien sélectionnées
+        if(productQuantity.value != 0 && colorChoice.value != ""){
+
         let cartSaved = JSON.parse(localStorage.getItem("myCart"));
         if(cartSaved){
 
@@ -102,7 +105,9 @@ function getProductForCart(product){
             saveCart(cartSaved);
         }
         alert("Le produit a été ajouté au panier")
+    }
     })
+
 }
 
 

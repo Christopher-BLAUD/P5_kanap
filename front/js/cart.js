@@ -1,4 +1,13 @@
 const myCart = JSON.parse(localStorage.getItem("myCart"));
+const submitBtn = document.querySelector("#order");
+const firstName = document.querySelector("#firstName");
+const lastName = document.querySelector("#lastName");
+const address = document.querySelector("#address");
+const city = document.querySelector("#city");
+const email = document.querySelector("#email");
+
+/*submitBtn.setAttribute("disabled", true);*/
+
 
 // Fonction permettant d'afficher tous les élements du panier contenu dans le localStorage
 
@@ -122,27 +131,21 @@ function changeQuantity() {
 
 changeQuantity();
 
-
-
 //  Controle des informations user
 
+const userForm = document.querySelectorAll("form input");
+
 function datasUserControl() {
-  const firstName = document.querySelector("#firstName");
-  const lastName = document.querySelector("#lastName");
-  const address = document.querySelector("#address");
-  const city = document.querySelector("#city");
-  const email = document.querySelector("#email");
-  const submitBtn = document.querySelector("#order");
 
   // Controle du prenom
   const firstNameValidation = document.querySelector("#firstNameErrorMsg");
-  firstName.addEventListener("change", function (e) {
-      if (/^[A-Z][A-Za-z\é\è\ê\-]+$/.test(e.target.value)) {
-          firstNameValidation.innerHTML = "";
-      } else {
-          firstNameValidation.innerHTML = "Le prénom doit commencer par une majuscule et ne contenir que des lettres.";
-      }
-  })
+    firstName.addEventListener("change", function (e) {
+        if (/^[A-Z][A-Za-z\é\è\ê\-]+$/.test(e.target.value)) {
+            firstNameValidation.innerHTML = "";
+        } else {
+            firstNameValidation.innerHTML = "Le prénom doit commencer par une majuscule et ne contenir que des lettres.";
+        }
+    })
 
   // Controle du nom
   const lastNameValidation = document.querySelector("#lastNameErrorMsg");
@@ -193,10 +196,10 @@ datasUserControl();
 
 // Envoyer les données user et récupère l'ID de la commmande
 
-const submitBtn = document.querySelector("#order");
- 
+
 submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    if(firstName.value !== "" && lastName.value !== "" && address.value !== "" && city.value !== "" && email.value !== ""){
     let productsInfo = [];
  
     for (let i = 0; i < myCart.length; i++) {
@@ -232,6 +235,6 @@ submitBtn.addEventListener("click", function (e) {
     .catch((err) => {
       console.log(err)
     })
+  }
   })
-
 
