@@ -82,7 +82,7 @@ function getProductForCart(product){
         };
 
         // Permet de contrôler qu'une quantité et une couleur sont bien sélectionnées
-        if(productQuantity.value != 0 && colorChoice.value != ""){
+        if(productQuantity.value !== 0 && colorChoice.value !== ""){
 
         let cartSaved = JSON.parse(localStorage.getItem("myCart"));
         if(cartSaved){

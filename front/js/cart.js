@@ -229,8 +229,8 @@ submitBtn.addEventListener("click", function (e) {
     .then((data) => {
       
       // Passe le "orderId" en paramètre de l'url
-      window.location.href = `confirmation.html?orderId=${data.orderId}`;
-      localStorage.clear();
+      /* window.location.href = `confirmation.html?orderId=${data.orderId}`;
+      localStorage.clear(); */
     })
     .catch((err) => {
       console.log(err)
